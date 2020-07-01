@@ -9,6 +9,7 @@ module.exports.default = function (req, res, next) {
     const apiKey = 'J06QACM0IZY7CCHY';
 
     let coinsPromises = [];
+
     coins.map(coin => {
         var coin_details = {
             uri: `https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&market=CNY`,
@@ -21,8 +22,25 @@ module.exports.default = function (req, res, next) {
         coinsPromises.push(rp(coin_details));
     });
 
+    Promise.all(coinsPromises)
+        .then((results) => {
+            let coinsData = results.map(dailyValue => {
+                const cryptoName = dailyValue["Meta Data"]["2. Digital Currency Code"]
+                const timeSeriesDaily = dailyValue["Time Series (Digital Currency Daily)"];
 
-    const formattedData = {}
-    res.send(exampleData);
+                const cryptoDailyValue = Object.keys(timeSeriesDaily).map(function(key, index) {
+                    return [Date.parse(key), parseFloat(timeSeriesDaily[key]['4b. close (USD)'])];
+                });
+                return {
+                    [cryptoName]: cryptoDailyValue.reverse()
+                }
+            })
+
+            results = {}
+            for(let object of coinsData) {
+                Object.assign(results, object)
+            }
+            res.json(results);
+        }).catch(err => console.log(err));
 }
 
