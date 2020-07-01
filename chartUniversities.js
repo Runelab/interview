@@ -7,11 +7,11 @@ module.exports.default = function (req, res, next) {
 
     var universitiesPromises = [];
     countries.map(country => {
-        var read_match_details = {
+        var university_details = {
             uri: `http://universities.hipolabs.com/search?country=${country}`,
             json: true // Automatically parses the JSON string in the response
         };
-        universitiesPromises.push(rp(read_match_details));
+        universitiesPromises.push(rp(university_details));
     });
 
     Promise.all(universitiesPromises)
