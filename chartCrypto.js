@@ -5,7 +5,6 @@ const exampleData = require("./exampleDataCrypto.json")
 module.exports.default = function (req, res, next) {
     var rp = require('request-promise'); //https://www.npmjs.com/package/request-promise
     const formattedData = {}
-            res.send(formattedData);
-        })
+    res.send(exampleData);
 }
 

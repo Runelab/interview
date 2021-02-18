@@ -6,16 +6,16 @@ function createChart() {
 
     Highcharts.chart('container', {
         chart: {
-            type: 'bar'
+            type: 'column'
         },
         title: {
-            text: 'Historic World Population by Region'
+            text: 'Number of Universities by State'
         },
         subtitle: {
             text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
         },
         xAxis: {
-            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+            categories: ['Italy', 'Turkey', 'Albania', 'Germany', 'France'],
             title: {
                 text: null
             }
@@ -64,7 +64,7 @@ function success(data) {
     createChart();
 }
 
-Highcharts.getJSON(
+$.getJSON(
     'http://localhost:8081/chartUniversities',
     success
 );

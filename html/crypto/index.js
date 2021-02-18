@@ -60,7 +60,7 @@ function success(data) {
     createChart();
 }
 
-Highcharts.getJSON(
+$.getJSON(
     'http://localhost:8081/chartCrypto',
     success
 );
