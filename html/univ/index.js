@@ -3,7 +3,8 @@
  * @returns {undefined}
  */
 function createChart() {
-
+    console.log({ seriesOptions })
+    console.log({ dynamicCat })
     Highcharts.chart('container', {
         chart: {
             type: 'column'
@@ -11,11 +12,8 @@ function createChart() {
         title: {
             text: 'Number of Universities by State'
         },
-        subtitle: {
-            text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
-        },
         xAxis: {
-            categories: ['Italy', 'Turkey', 'Albania', 'Germany', 'France'],
+            categories: dynamicCat,
             title: {
                 text: null
             }
@@ -23,21 +21,11 @@ function createChart() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)',
+                text: 'Number',
                 align: 'high'
             },
             labels: {
                 overflow: 'justify'
-            }
-        },
-        tooltip: {
-            valueSuffix: ' millions'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
             }
         },
         legend: {
@@ -60,7 +48,15 @@ function createChart() {
 }
 
 function success(data) {
-    seriesOptions = data
+    seriesOptions = [{
+        "name": "Universities",
+        "data": data.map(function (d) {
+            return d.data[0]
+        })
+    }]
+    dynamicCat = data.map(function (d) {
+        return d.name
+    })
     createChart();
 }
 

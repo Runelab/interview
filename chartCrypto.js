@@ -1,5 +1,8 @@
 // alphavantage apiKey J06QACM0IZY7CCHY 
 // https://www.alphavantage.co/documentation (closing daily US con USD market)
+// value: DIGITAL_CURRENCY_DAILY
+// symbol: BTC ecc
+// market: USD
 const moment = require("moment") //https://momentjs.com/docs/
 const exampleData = require("./exampleDataCrypto.json")
 module.exports.default = function (req, res, next) {
